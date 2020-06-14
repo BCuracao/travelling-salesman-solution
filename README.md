@@ -6,6 +6,7 @@ HOW TO RUN:
 1. Download and unzip the project
 2. Open Project using VISUAL STUDIO
 3. Run Solution
+4. Result should appear in a console window
 
 Algorithm used: Nearest Neighbour
 
