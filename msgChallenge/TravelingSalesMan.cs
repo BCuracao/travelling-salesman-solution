@@ -49,8 +49,11 @@ internal class TravelingSalesMan
 
         // Read data line by line and prepare it for further processing
         StringReader strReader = new StringReader(inputData);
+
         List<string> csvData = new List<string>();
+
         string line = "";
+
         while ((line = strReader.ReadLine()) != null)
         {
             csvData.Add(line);
@@ -76,6 +79,7 @@ internal class TravelingSalesMan
     {
         // Matrix of all possible destinations of all cities
         graph = new int[cityNodes.Count, cityNodes.Count];
+
         // Holds the shortest travel route
         solutionRoute = new List<int>();
 
@@ -110,7 +114,7 @@ internal class TravelingSalesMan
         // Holds the minimum distance
         int min = int.MaxValue;
         // Holds if we found a new minimum
-        bool minFlag = false; ;
+        bool minFlag = false;
         // Add the start of the route (Munich) to the solution
         solutionRoute.Add(dst);
 
@@ -119,6 +123,7 @@ internal class TravelingSalesMan
             element = stack.Peek();
             i = 0;
             min = int.MaxValue;
+
             while (i <= numberOfNodes)
             {
                 if (graph[element, i] > 1 && visited[i] == 0)
@@ -151,7 +156,7 @@ internal class TravelingSalesMan
     //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     private void printSolution()
     {
-        Console.WriteLine("The shortest possible route is: ");
+        Console.WriteLine("The shortest possible route using the 'nearest neightbour' algorithm is: ");
         for (int i = 0; i < solutionRoute.Count; i++)
         {
             Console.WriteLine(destinations[solutionRoute[i]]);
