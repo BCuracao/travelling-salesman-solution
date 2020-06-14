@@ -7,6 +7,8 @@ HOW TO RUN:
 2. Open Project using VISUAL STUDIO
 3. Run Solution
 
+Algorithm used: Nearest Neighbour
+
 HOW IT WORKS:
 1. Read the .CSV file and store it as string array.
 2. Left shift the array to remove the first line, which we don't need.
@@ -15,4 +17,3 @@ HOW IT WORKS:
 5. Assuming that you can travel from any city to any other; we have to calculate all possible distances between every single city.
 6. Store the distance information in a 2d matrix (21x21)
 7. Solve the Traveling Salesman Problem using the "Nearest Neighbour" approach.
-
