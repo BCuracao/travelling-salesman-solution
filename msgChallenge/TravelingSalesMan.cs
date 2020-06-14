@@ -33,6 +33,13 @@ internal class TravelingSalesMan
     // Data structure used to calculate the best route
     private Stack<int> stack;
 
+    // Saves the total distance of the journey
+    private int totalDistance;
+
+    // Saves the distances between the start of the route and last destination.
+    // Needed to calculate the total distance traveled.
+    int distanceBetweenLastAndFirstCity;
+
     //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     //::  Constructor                                                   :::
     //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -51,6 +58,7 @@ internal class TravelingSalesMan
         StringReader strReader = new StringReader(inputData);
 
         List<string> csvData = new List<string>();
+
 
         string line = "";
 
@@ -94,6 +102,18 @@ internal class TravelingSalesMan
             destinations.Add(i, cityNodes[i].location);
         }
 
+        // Print the distance matrix
+        Console.WriteLine("Distance Matrix in the same order as in the provided .csv file: ");
+        for (int i = 0; i < cityNodes.Count; i++)
+        {
+            Console.WriteLine();
+            for (int j = 0; j < cityNodes.Count; j++)
+            {
+                Console.Write(graph[i, j] +" ");
+            }
+        }
+        Console.WriteLine();
+        Console.WriteLine();
         solveTheTsp(graph);
     }
 
@@ -111,6 +131,8 @@ internal class TravelingSalesMan
         // Push first value on the stack
         stack.Push(0);
         int element, dst = 0, i;
+        // Keep track of the total distance traveled
+        totalDistance = 0;
         // Holds the minimum distance
         int min = int.MaxValue;
         // Holds if we found a new minimum
@@ -142,11 +164,14 @@ internal class TravelingSalesMan
                 visited[dst] = 1;
                 stack.Push(dst);
                 solutionRoute.Add(dst);
+                totalDistance += min;
                 minFlag = false;
                 continue;
             }
             stack.Pop();
+            distanceBetweenLastAndFirstCity = graph[0, dst];
         }
+ 
         solutionRoute.Add(0);
         printSolution();
     }
@@ -156,7 +181,9 @@ internal class TravelingSalesMan
     //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     private void printSolution()
     {
-        Console.WriteLine("The shortest possible route using the 'nearest neightbour' algorithm is: ");
+        Console.WriteLine();
+        Console.WriteLine("TOTAL DISTANCE TRAVELED: " + (totalDistance + distanceBetweenLastAndFirstCity) + " km" + "\n");
+        Console.WriteLine("The shortest possible route using the 'nearest neightbour' algorithm is: " + "\n");
         for (int i = 0; i < solutionRoute.Count; i++)
         {
             Console.WriteLine(destinations[solutionRoute[i]]);
